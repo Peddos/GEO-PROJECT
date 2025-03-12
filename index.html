@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAR Earth</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.min.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #info { position: absolute; top: 10px; left: 10px; color: white; font-size: 18px; z-index: 10; }
+    </style>
+</head>
+<body>
+    <div id="info">🔭 Point your camera at the marker to see Earth in AR!</div>
+    
+    <a-scene embedded arjs>
+        <!-- AR Marker (Loads Earth when viewed through the camera) -->
+        <a-marker preset="hiro">
+            <a-entity 
+                position="0 0 0"
+                scale="1 1 1"
+                gltf-model="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/EarthGlTF/glTF/Earth.gltf"
+                rotation="0 180 0">
+            </a-entity>
+        </a-marker>
+        
+        <a-entity camera></a-entity>
+    </a-scene>
+</body>
+</html>
