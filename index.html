@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Realistic Solar System</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
 </head>
 <body>
-    <a-scene background="color: black">
+    <a-scene embedded arjs background="color: black">
         
         <!-- Stars Background -->
         <a-sky src="https://upload.wikimedia.org/wikipedia/commons/6/6a/NASA_starfield.jpg"></a-sky>
@@ -22,23 +23,19 @@
 
         <!-- Planets with Realistic Textures and Light Reflection -->
         <a-entity position="5 0 0">
-            <a-sphere radius="0.4" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Mercury_texture.jpg" material="metalness: 0.9; roughness: 0.1;"></a-sphere>
+            <a-sphere radius="0.4" src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Mercury_texture.jpg"></a-sphere>
         </a-entity>
 
         <a-entity position="9 0 0">
-            <a-sphere radius="0.7" src="https://upload.wikimedia.org/wikipedia/commons/8/85/Venus_globe.jpg" material="metalness: 0.7; roughness: 0.2;"></a-sphere>
+            <a-sphere radius="0.7" src="https://upload.wikimedia.org/wikipedia/commons/8/85/Venus_globe.jpg"></a-sphere>
         </a-entity>
 
         <a-entity position="14 0 0">
-            <a-sphere radius="0.9" src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Earthmap1000x500.jpg" material="metalness: 0.5; roughness: 0.4;"></a-sphere>
-        </a-entity>
-
-        <a-entity position="14.8 0 0">
-            <a-sphere radius="0.2" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/The_Moon.jpg"></a-sphere>
+            <a-sphere radius="0.9" src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Earthmap1000x500.jpg" emissive="#0000ff" emissiveIntensity="0.5"></a-sphere>
         </a-entity>
 
         <a-entity position="20 0 0">
-            <a-sphere radius="0.6" src="https://upload.wikimedia.org/wikipedia/commons/5/56/Mars_Viking_color.jpg"></a-sphere>
+            <a-sphere radius="0.6" src="https://upload.wikimedia.org/wikipedia/commons/5/56/Mars_Viking_color.jpg" emissive="#ff0000" emissiveIntensity="0.3"></a-sphere>
         </a-entity>
 
         <a-entity position="30 0 0">
@@ -47,7 +44,7 @@
 
         <a-entity position="40 0 0">
             <a-sphere radius="1.8" src="https://upload.wikimedia.org/wikipedia/commons/4/43/Saturnx.jpg"></a-sphere>
-            <a-ring radius-inner="2.2" radius-outer="3" position="0 0 0" rotation="90 0 0" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Saturn_rings.png"></a-ring>
+            <a-ring radius-inner="2.2" radius-outer="3" rotation="90 0 0" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Saturn_rings.png"></a-ring>
         </a-entity>
 
         <a-entity position="50 0 0">
@@ -58,37 +55,31 @@
             <a-sphere radius="1.3" src="https://upload.wikimedia.org/wikipedia/commons/0/06/Neptune.jpg"></a-sphere>
         </a-entity>
 
-        <!-- Dwarf Planets and Celestial Bodies -->
-        <a-entity position="70 0 0">
-            <a-sphere radius="0.5" src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Pluto-01_Stern_03_Pluto_Color_TXT.jpg"></a-sphere>
-        </a-entity>
-
-        <!-- Asteroids Belt -->
-        <a-entity position="35 5 -10">
-            <a-sphere radius="0.2" color="gray"></a-sphere>
-        </a-entity>
-
-        <a-entity position="36 -3 8">
-            <a-sphere radius="0.15" color="darkgray"></a-sphere>
-        </a-entity>
-
-        <!-- Comet -->
-        <a-entity position="-50 20 -30">
-            <a-sphere radius="0.3" color="white"></a-sphere>
-            <a-cylinder position="0 -1 0" height="5" radius="0.1" color="blue" opacity="0.7"></a-cylinder>
-        </a-entity>
-
-        <!-- Orbit Paths -->
-        <a-ring position="0 0 0" radius-inner="5" radius-outer="5.1" color="gray"></a-ring>
-        <a-ring position="0 0 0" radius-inner="9" radius-outer="9.1" color="gray"></a-ring>
-        <a-ring position="0 0 0" radius-inner="14" radius-outer="14.1" color="gray"></a-ring>
-        <a-ring position="0 0 0" radius-inner="20" radius-outer="20.1" color="gray"></a-ring>
-
         <!-- Camera for Navigation -->
         <a-entity position="0 5 100">
-            <a-camera wasd-controls look-controls></a-camera>
+            <a-camera wasd-controls look-controls>
+                <a-entity cursor="fuse: true; fuseTimeout: 500"
+                          position="0 0 -1"
+                          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                          material="color: white; shader: flat">
+                </a-entity>
+            </a-camera>
         </a-entity>
     </a-scene>
+    
+    <!-- Buttons for AR and VR Mode -->
+    <div style="position: absolute; top: 10px; left: 10px; z-index: 1000;">
+        <button onclick="enterVR()">Enter VR</button>
+        <button onclick="enterAR()">Enter AR</button>
+    </div>
+
+    <script>
+        function enterVR() {
+            document.querySelector('a-scene').enterVR();
+        }
+        function enterAR() {
+            document.querySelector('a-scene').enterAR();
+        }
+    </script>
 </body>
 </html>
-
